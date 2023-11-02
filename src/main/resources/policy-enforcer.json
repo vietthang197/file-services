@@ -4,5 +4,26 @@
   "resource": "file-api",
   "credentials": {
     "secret": "OMN7ldI7OnTKbEq0xnWdC3nchEnHyws7"
-  }
+  },
+  "enforcement-mode": "PERMISSIVE",
+  "paths": [
+    {
+      "name" : "File Resource",
+      "path" : "/file/{id}",
+      "methods" : [
+        {
+          "method": "DELETE",
+          "scopes" : ["file:delete"]
+        },
+        {
+          "method": "GET",
+          "scopes" : ["file:view"]
+        },
+        {
+          "method": "POST",
+          "scopes" : ["file:create"]
+        }
+      ]
+    }
+  ]
 }
