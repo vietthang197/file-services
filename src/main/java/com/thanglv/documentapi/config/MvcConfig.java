@@ -14,18 +14,11 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class MvcConfig implements WebMvcConfigurer {
+public class MvcConfig {
 
     @Bean
     public MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspection) {
         return new MvcRequestMatcher.Builder(introspection);
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("classpath:/static/")
-                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
 
     @Bean

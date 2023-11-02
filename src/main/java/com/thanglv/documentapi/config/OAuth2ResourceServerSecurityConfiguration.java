@@ -58,6 +58,7 @@ public class OAuth2ResourceServerSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.addFilter(corsFilter)
+				.httpBasic(Customizer.withDefaults())
 				.authorizeHttpRequests((authorize) -> authorize
 						.requestMatchers(mvc.pattern(HttpMethod.GET, "/files/**")).permitAll()
 						.anyRequest().authenticated()
