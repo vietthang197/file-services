@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: Hikari
+      validation-timeout: 1000
+  application:
+    name: VietTravel
+  jpa:
+    open-in-view: false
+    properties:
+      javax:
+        persistence:
+          shared-cache:
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        show_sql: true
+        generate_statistics: true
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_size: 50000
+          fetch_size: 1000
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 1
+        search:
+          backend:
+            analysis:
+              configurer: com.travel.config.MyAnalysisConfigurer
+            directory:
+              type: local-filesystem
+              root: D:/apache_lucene/documentapi
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/travel/protocol/openid-connect/certs
+#application
+file-management.root-path: /app
+server:
+  port: 8092
