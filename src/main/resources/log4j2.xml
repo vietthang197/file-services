@@ -20,7 +20,7 @@
 			<AppenderRef ref="api"/>
 			<AppenderRef ref="Console"/>
 		</Root>
-		<logger name="com.thanglv" level="INFO" additivity="false">
+		<logger name="com.thanglv" level="DEBUG" additivity="false">
 			<appender-ref ref="api" />
 			<appender-ref ref="Console" />
 		</logger>

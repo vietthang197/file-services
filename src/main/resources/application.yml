@@ -46,6 +46,7 @@ spring:
         jwt:
           jwk-set-uri: http://localhost:8080/realms/travel/protocol/openid-connect/certs
 #application
-file-management.root-path: /app
+file-management:
+  root-path: /app
 server:
   port: 8092

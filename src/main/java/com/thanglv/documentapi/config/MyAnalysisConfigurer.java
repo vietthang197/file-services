@@ -8,6 +8,7 @@ import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
 import org.hibernate.search.backend.lucene.analysis.LuceneAnalysisConfigurationContext;
 import org.hibernate.search.backend.lucene.analysis.LuceneAnalysisConfigurer;
+import org.keycloak.adapters.authorization.PolicyEnforcer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,6 @@ public class MyAnalysisConfigurer implements LuceneAnalysisConfigurer {
 
     @Override
     public void configure(LuceneAnalysisConfigurationContext context) {
-
         context.analyzer("customAnalyzer").custom()
                 .tokenizer(ICUTokenizerFactory.class)
                 .tokenFilter(ICUNormalizer2FilterFactory.class)

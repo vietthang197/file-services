@@ -34,6 +34,7 @@ import org.springframework.security.oauth2.server.resource.web.authentication.Be
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
+import org.keycloak.adapters.authorization.PolicyEnforcer;
 
 import java.io.IOException;
 
@@ -58,20 +59,20 @@ public class OAuth2ResourceServerSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.addFilter(corsFilter)
-				.httpBasic(Customizer.withDefaults())
 				.authorizeHttpRequests((authorize) -> authorize
-						.requestMatchers(mvc.pattern(HttpMethod.GET, "/files/**")).permitAll()
+						.requestMatchers(mvc.pattern(HttpMethod.GET, "/file/**")).permitAll()
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-				.addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class);
+				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
 		return http.build();
 	}
 
-	private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
-		return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
+	@Bean
+	public CheckUmaPermission checkUmaPermission() {
+		return new CheckUmaPermission(new ConfigurationResolver() {
 			@Override
 			public PolicyEnforcerConfig resolve(HttpRequest request) {
+
 				try {
 					return JsonSerialization.readValue(getClass().getResourceAsStream("/policy-enforcer.json"), PolicyEnforcerConfig.class);
 				} catch (IOException e) {
