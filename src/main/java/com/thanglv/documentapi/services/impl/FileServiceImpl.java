@@ -1,6 +1,5 @@
 package com.thanglv.documentapi.services.impl;
 
-import com.thanglv.documentapi.config.CheckUmaPermission;
 import com.thanglv.documentapi.dto.BasicResponseDto;
 import com.thanglv.documentapi.dto.FileInfoDto;
 import com.thanglv.documentapi.entity.FileInfo;
@@ -18,6 +17,9 @@ import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.representations.idm.authorization.ResourceRepresentation;
 import org.keycloak.representations.idm.authorization.ScopeRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Log4j2
@@ -39,15 +42,15 @@ public class FileServiceImpl implements FileService {
     private final FileInfoRepository fileInfoRepository;
     private final String rootPath;
     private final FileInfoMapper fileInfoMapper;
-    private final CheckUmaPermission checkUmaPermission;
+    private final KeycloakAuthzService keycloakAuthzService;
 
     public FileServiceImpl(FileInfoRepository fileInfoRepository, @Value("${file-management.root-path}") String rootPath,
                            FileInfoMapper fileInfoMapper,
-                           CheckUmaPermission checkUmaPermission) {
+                           KeycloakAuthzService keycloakAuthzService) {
         this.fileInfoRepository = fileInfoRepository;
         this.rootPath = rootPath;
         this.fileInfoMapper = fileInfoMapper;
-        this.checkUmaPermission = checkUmaPermission;
+        this.keycloakAuthzService = keycloakAuthzService;
     }
 
     @Override
@@ -118,6 +121,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    @Transactional
     public void downloadSingleFile(String fileId, HttpServletRequest request, HttpServletResponse response) {
         Optional<FileInfo> fileInfoOptional = fileInfoRepository.findById(fileId);
         if (fileInfoOptional.isEmpty()) {
@@ -128,7 +132,7 @@ public class FileServiceImpl implements FileService {
         FileInfo fileInfo = fileInfoOptional.get();
         boolean isGranted = false;
         if (Constant.STR_N.equals(fileInfo.getIsPublic())) {
-            isGranted = checkUmaPermission.isGrant(request, response);
+            isGranted = keycloakAuthzService.isGrant(request, response);
         } else
             isGranted = true;
 
@@ -140,6 +144,10 @@ public class FileServiceImpl implements FileService {
         String contentType = "application/octet-stream";
         try {
             contentType = Files.probeContentType(Path.of(fileInfo.getPath()));
+            if (contentType != null && contentType.startsWith("image")) {
+                response.setHeader(HttpHeaders.CACHE_CONTROL, CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic().getHeaderValue());
+                response.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
+            }
         } catch (IOException e) {
             log.error(e);
         }

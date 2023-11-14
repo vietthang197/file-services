@@ -15,7 +15,7 @@
  */
 package com.thanglv.documentapi.config;
 
-import org.keycloak.adapters.authorization.integration.jakarta.ServletPolicyEnforcerFilter;
+import com.thanglv.documentapi.services.impl.KeycloakAuthzService;
 import org.keycloak.adapters.authorization.spi.ConfigurationResolver;
 import org.keycloak.adapters.authorization.spi.HttpRequest;
 import org.keycloak.representations.adapters.config.PolicyEnforcerConfig;
@@ -30,11 +30,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
-import org.keycloak.adapters.authorization.PolicyEnforcer;
 
 import java.io.IOException;
 
@@ -68,8 +66,8 @@ public class OAuth2ResourceServerSecurityConfiguration {
 	}
 
 	@Bean
-	public CheckUmaPermission checkUmaPermission() {
-		return new CheckUmaPermission(new ConfigurationResolver() {
+	public KeycloakAuthzService keycloakAuthzService() {
+		return new KeycloakAuthzService(new ConfigurationResolver() {
 			@Override
 			public PolicyEnforcerConfig resolve(HttpRequest request) {
 

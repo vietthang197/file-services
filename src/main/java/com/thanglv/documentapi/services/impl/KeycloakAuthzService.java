@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.config;
+package com.thanglv.documentapi.services.impl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,12 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Log4j2
-public class CheckUmaPermission {
+public class KeycloakAuthzService {
 
     private final Map<PolicyEnforcerConfig, PolicyEnforcer> policyEnforcer;
     private final ConfigurationResolver configResolver;
 
-    public CheckUmaPermission(ConfigurationResolver configResolver) {
+    public KeycloakAuthzService(ConfigurationResolver configResolver) {
         this.configResolver = configResolver;
         this.policyEnforcer = Collections.synchronizedMap(new HashMap<>());
     }
@@ -31,7 +31,7 @@ public class CheckUmaPermission {
     public boolean isGrant(final HttpServletRequest request, HttpServletResponse response) {
         ServletHttpRequest httpRequest = new ServletHttpRequest(request, new TokenPrincipal() {
             public String getRawToken() {
-                return CheckUmaPermission.extractBearerToken(request);
+                return KeycloakAuthzService.extractBearerToken(request);
             }
         });
         PolicyEnforcer policyEnforcer = this.getOrCreatePolicyEnforcer(httpRequest);
@@ -56,7 +56,7 @@ public class CheckUmaPermission {
     }
 
     private PolicyEnforcer getOrCreatePolicyEnforcer(HttpRequest request) {
-        return this.policyEnforcer.computeIfAbsent(this.configResolver.resolve(request), CheckUmaPermission.this::createPolicyEnforcer);
+        return this.policyEnforcer.computeIfAbsent(this.configResolver.resolve(request), KeycloakAuthzService.this::createPolicyEnforcer);
     }
     protected PolicyEnforcer createPolicyEnforcer(PolicyEnforcerConfig enforcerConfig) {
         String authServerUrl = enforcerConfig.getAuthServerUrl();
