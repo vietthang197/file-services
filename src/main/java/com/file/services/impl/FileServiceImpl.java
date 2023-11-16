@@ -1,12 +1,12 @@
-package com.thanglv.documentapi.services.impl;
+package com.file.services.impl;
 
-import com.thanglv.documentapi.dto.BasicResponseDto;
-import com.thanglv.documentapi.dto.FileInfoDto;
-import com.thanglv.documentapi.entity.FileInfo;
-import com.thanglv.documentapi.mapper.FileInfoMapper;
-import com.thanglv.documentapi.repository.FileInfoRepository;
-import com.thanglv.documentapi.services.FileService;
-import com.thanglv.documentapi.util.Constant;
+import com.file.dto.BasicResponseDto;
+import com.file.dto.FileInfoDto;
+import com.file.entity.FileInfo;
+import com.file.mapper.FileInfoMapper;
+import com.file.repository.FileInfoRepository;
+import com.file.services.FileService;
+import com.file.util.Constant;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -19,7 +19,6 @@ import org.keycloak.representations.idm.authorization.ScopeRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

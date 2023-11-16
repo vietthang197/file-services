@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.dto;
+package com.file.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

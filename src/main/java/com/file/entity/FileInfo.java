@@ -1,6 +1,6 @@
-package com.thanglv.documentapi.entity;
+package com.file.entity;
 
-import com.thanglv.documentapi.controller.SuperEntity;
+import com.file.controller.SuperEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

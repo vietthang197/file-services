@@ -1,6 +1,6 @@
-package com.thanglv.documentapi.dto;
+package com.file.dto;
 
-import com.thanglv.documentapi.util.Constant;
+import com.file.util.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

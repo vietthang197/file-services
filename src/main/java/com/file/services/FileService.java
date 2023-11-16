@@ -1,7 +1,7 @@
-package com.thanglv.documentapi.services;
+package com.file.services;
 
-import com.thanglv.documentapi.dto.BasicResponseDto;
-import com.thanglv.documentapi.dto.FileInfoDto;
+import com.file.dto.BasicResponseDto;
+import com.file.dto.FileInfoDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;

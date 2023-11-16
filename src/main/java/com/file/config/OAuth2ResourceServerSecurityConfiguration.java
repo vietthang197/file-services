@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thanglv.documentapi.config;
+package com.file.config;
 
-import com.thanglv.documentapi.services.impl.KeycloakAuthzService;
+import com.file.services.impl.KeycloakAuthzService;
 import org.keycloak.adapters.authorization.spi.ConfigurationResolver;
 import org.keycloak.adapters.authorization.spi.HttpRequest;
 import org.keycloak.representations.adapters.config.PolicyEnforcerConfig;

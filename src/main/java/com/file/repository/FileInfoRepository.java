@@ -1,6 +1,6 @@
-package com.thanglv.documentapi.repository;
+package com.file.repository;
 
-import com.thanglv.documentapi.entity.FileInfo;
+import com.file.entity.FileInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

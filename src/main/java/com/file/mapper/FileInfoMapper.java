@@ -1,7 +1,7 @@
-package com.thanglv.documentapi.mapper;
+package com.file.mapper;
 
-import com.thanglv.documentapi.dto.FileInfoDto;
-import com.thanglv.documentapi.entity.FileInfo;
+import com.file.entity.FileInfo;
+import com.file.dto.FileInfoDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,8 +1,8 @@
-package com.thanglv.documentapi.controller;
+package com.file.controller;
 
-import com.thanglv.documentapi.dto.BasicResponseDto;
-import com.thanglv.documentapi.dto.FileInfoDto;
-import com.thanglv.documentapi.services.FileService;
+import com.file.dto.BasicResponseDto;
+import com.file.dto.FileInfoDto;
+import com.file.services.FileService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;

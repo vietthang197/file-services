@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.controller;
+package com.file.controller;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Inheritance;

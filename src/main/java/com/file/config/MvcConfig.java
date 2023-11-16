@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.config;
+package com.file.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

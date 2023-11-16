@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.config;
+package com.file.config;
 
 import org.apache.lucene.analysis.charfilter.HTMLStripCharFilterFactory;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;

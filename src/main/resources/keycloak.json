@@ -1,5 +1,5 @@
 {
-  "realm": "travel",
+  "realm": "ecommerce",
   "auth-server-url": "http://localhost:8080",
   "resource": "file-services",
   "credentials": {

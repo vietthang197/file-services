@@ -1,4 +1,4 @@
-package com.thanglv.documentapi.util;
+package com.file.util;
 
 public interface Constant {
     public interface FILE_RESOURCE {
